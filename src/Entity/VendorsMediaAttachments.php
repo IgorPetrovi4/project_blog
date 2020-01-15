@@ -1,0 +1,34 @@
+<?php
+declare(strict_types=1);
+namespace App\Entity;
+use App\Entity\BaseTrait;
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Table(name="vendors_medias", indexes={
+ * @ORM\Index(name="vendor_media_idx", columns={"slug"})})
+ * @ORM\Entity(repositoryClass="App\Repository\VendorsRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class VendorsMediaAttachments
+{
+    use BaseTrait;
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vendors", inversedBy="vendorMediaAttachments")
+     * @ORM\JoinColumn(name="attachments_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $attachments;
+    /**
+     * @return mixed
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+    /**
+     * @param Vendors $attachments
+     */
+    public function setAttachment(Vendors $attachments): void
+    {
+        $this->attachments = $attachments;
+    }
+}
