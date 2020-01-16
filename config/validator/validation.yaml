@@ -1,0 +1,4 @@
+App\Entity\File:
+  properties:
+    identifier:
+      - Uuid: ~
