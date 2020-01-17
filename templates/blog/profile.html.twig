@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1>Ваши посты</h1>
+        <table class="table  table-sm table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Заголовок</th>
+                <th scope="col">Ссылка</th>
+                <th scope="col">Пост</th>
+                <th scope="col">summary</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+        {% for post in posts %}
+            <tr>
+                <th>{{ post.id }}</th>
+                <td>{{ post.title}} </td>
+                <td>{{ post.slug}} </td>
+                <td>{{ post.content}} </td>
+                <td><a href="{{ path('profile', { 'id': post.summary }) }}">Изменить тег</a></td>
+
+            </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="container">
+        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
+
+    </div>
+{% endblock %}

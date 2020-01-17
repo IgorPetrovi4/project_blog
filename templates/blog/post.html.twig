@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Добавить пост</h1>
+
+    {{ form_start(form_blog) }}
+    {{ form_widget(form_blog) }}
+    <button type="submit" class="btn btn-outline-secondary">Отправить</button>
+    {{ form_end(form_blog) }}
+</div>
+{% endblock %}

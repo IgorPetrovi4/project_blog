@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MainController extends AbstractController
@@ -28,8 +27,8 @@ class MainController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
+        // регистрация
         $userBase = new UserBase();
-
         $form = $this->createForm(RegisterUserBaseType::class, $userBase);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -45,7 +44,7 @@ class MainController extends AbstractController
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('profile');
         }
 
 
