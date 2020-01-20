@@ -40,7 +40,11 @@ class BlogController extends AbstractController
      */
     public function profile(Request $request, EntityManagerInterface $em)
     {
+
         $user = $this->getUser();
+        if (!$user){
+            return $this->redirectToRoute('register');
+        }
 
 
          // вывод всей таблицы
@@ -54,8 +58,12 @@ class BlogController extends AbstractController
         return $this->render('blog/profile.html.twig', [
             'controller_name' => 'ProfileController',
             'posts' => $posts
+
         ]);
     }
+
+
+
 
 
 }

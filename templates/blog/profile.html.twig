@@ -4,16 +4,18 @@
 
 {% block body %}
 
-    <div class="example-wrapper">
+
+
+    <div class="container">
         <h1>Ваши посты</h1>
         <table class="table  table-sm table-bordered">
             <thead>
             <tr>
                 <th scope="col">№</th>
                 <th scope="col">Заголовок</th>
-                <th scope="col">Ссылка</th>
                 <th scope="col">Пост</th>
-                <th scope="col">summary</th>
+                <th scope="col">Удалить</th>
+                <th scope="col">Редактировать</th>
 
             </tr>
             </thead>
@@ -23,9 +25,10 @@
             <tr>
                 <th>{{ post.id }}</th>
                 <td>{{ post.title}} </td>
-                <td>{{ post.slug}} </td>
                 <td>{{ post.content}} </td>
-                <td><a href="{{ path('profile', { 'id': post.summary }) }}">Изменить тег</a></td>
+                <td><a href="{{ path('remove_post', { 'id': post.id }) }}">Удалить пост</a></td>
+                <td><a href="{{ path('edit_post', { 'id': post.id }) }}">Редактировать пост</a></td>
+
 
             </tr>
         {% endfor %}

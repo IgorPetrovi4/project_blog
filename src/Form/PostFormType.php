@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +15,7 @@ class PostFormType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
-            ->add('summary')
-            ->add('content')
+             ->add('content')
         ;
     }
 
