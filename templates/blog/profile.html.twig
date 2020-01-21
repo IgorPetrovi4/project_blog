@@ -4,7 +4,10 @@
 
 {% block body %}
 
+    <div class="container">
+        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
 
+    </div>
 
     <div class="container">
         <h1>Ваши посты</h1>
@@ -37,8 +40,5 @@
 
     </div>
 
-    <div class="container">
-        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
 
-    </div>
 {% endblock %}

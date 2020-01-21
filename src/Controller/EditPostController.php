@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Entity\Profile;
 use App\Form\PostFormType;
-use App\Form\ProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +21,7 @@ class EditPostController extends AbstractController
         // форма изменения информации
         $form = $this->createForm(PostFormType::class, $post);
        $form->handleRequest($request);
-        dd($form);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em->flush();
@@ -32,7 +30,7 @@ class EditPostController extends AbstractController
             return $this->redirectToRoute('profile', ['id' => $post->getId()]);
         }
 
-        return $this->render('blog/profile.html.twig', [
+        return $this->render('edit_post/index.html.twig', [
             'controller_name' => 'AdminController',
             'form' => $form->createView(),
 
