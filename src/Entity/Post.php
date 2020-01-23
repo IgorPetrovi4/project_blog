@@ -36,6 +36,12 @@ class Post
      */
     private $content;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserBase", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +91,18 @@ class Post
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getUser(): ?UserBase
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserBase $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

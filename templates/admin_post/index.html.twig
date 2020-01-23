@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminPostController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
+
+
+
+
+        <h1>Ваши посты</h1>
+        <div class="col-lg-auto">
+            <table class="table table-responsive-sm table-sm">
+                <thead class="text-center">
+                <tr>
+                    <th scope="col">Копирайтер</th>
+                    <th scope="col">Заголовок</th>
+                    <th scope="col">Пост</th>
+                    <th scope="col">Удалить</th>
+                    <th scope="col">Редактировать</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+                    {% for post in posts %}
+                    <tr>
+                        <th>{{ post.user.email}}</th>
+                        <td>{{ post.title}} </td>
+                        <td>{{ post.content}} </td>
+                        <td><a href="{{ path('remove_post', { 'id': post.id }) }}">&#128465;</a></td>
+                        <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

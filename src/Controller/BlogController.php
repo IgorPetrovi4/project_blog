@@ -23,6 +23,7 @@ class BlogController extends AbstractController
 
         if ($form_blog->isSubmitted() && $form_blog->isValid()) {
             $post = $form_blog->getData();
+            $post->setUser($this->getUser());
             $em->persist($post);
             $em->flush();
             $this->addFlash('success', 'Данные добвленны в базу данных');
@@ -46,19 +47,25 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
+        if ($this->isGranted('ROLE_USER')) {
 
-         // вывод всей таблицы
-        $posts = $em->getRepository(Post::class)->findBy([]);
+            // вывод  таблицы User id
+            $posts = $em->getRepository(Post::class)->findBy(array('user' => $this->getUser()->getId()));
+
+        }
 
 
 
+        if ($this->isGranted('ROLE_ADMIN')) {
+            // вывод всей таблицы всех user
+            return $this->redirectToRoute('admin_post');
 
+        }
 
 
         return $this->render('blog/profile.html.twig', [
             'controller_name' => 'ProfileController',
-            'posts' => $posts
-
+            'posts'=>$posts
         ]);
     }
 

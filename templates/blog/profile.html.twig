@@ -3,16 +3,17 @@
 {% block title %}Hello BlogController!{% endblock %}
 
 {% block body %}
-
     <div class="container">
+
         <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
 
-    </div>
 
-    <div class="container">
+
+
         <h1>Ваши посты</h1>
-        <table class="table  table-sm table-bordered">
-            <thead>
+        <div class="col-lg-auto">
+        <table class="table table-responsive-sm table-sm">
+            <thead class="text-center">
             <tr>
                 <th scope="col">№</th>
                 <th scope="col">Заголовок</th>
@@ -29,8 +30,8 @@
                 <th>{{ post.id }}</th>
                 <td>{{ post.title}} </td>
                 <td>{{ post.content}} </td>
-                <td><a href="{{ path('remove_post', { 'id': post.id }) }}">Удалить пост</a></td>
-                <td><a href="{{ path('edit_post', { 'id': post.id }) }}">Редактировать пост</a></td>
+                <td><a href="{{ path('remove_post', { 'id': post.id }) }}">&#128465;</a></td>
+                <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
 
 
             </tr>
@@ -39,6 +40,6 @@
         </table>
 
     </div>
-
+    </div>
 
 {% endblock %}
