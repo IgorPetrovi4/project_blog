@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -32,7 +33,10 @@ class PostFormType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content');
+            ->add('content', TextareaType::class, [
+                'attr'=> ['rows'=>10
+                ]
+            ]);
 
 
         // ставлю прослушиватель событий
@@ -43,7 +47,9 @@ class PostFormType extends AbstractType
              $user = $this->security->isGranted('ROLE_ADMIN');
 
             if (!empty($post)&& $user  )  {
-                $form->add('edited');
+                $form->add('edited', CheckboxType::class,[
+                    'label'=>'Отредактированно'
+                ]);
             }
         });
     }

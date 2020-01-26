@@ -23,7 +23,6 @@
                 <th scope="col">№</th>
                 <th scope="col">Заголовок</th>
                 <th scope="col">Пост</th>
-                <th scope="col">Проверка</th>
                 <th scope="col">Удалить</th>
                 <th scope="col">Редактировать</th>
 
@@ -38,7 +37,6 @@
                 <th>{{ post.id }}</th>
                 <td>{{ post.title}} </td>
                 <td>{{ post.content}} </td>
-                <td>{{ post.edited}} </td>
                 {% if post.edited == 1 %}
                     <td><a >отрадактированно</a></td>
                 {% else %}
