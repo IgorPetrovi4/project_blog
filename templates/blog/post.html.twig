@@ -4,12 +4,16 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Добавить пост</h1>
 
-    {{ form_start(form_blog) }}
-    {{ form_widget(form_blog) }}
-    <button type="submit" class="btn btn-outline-secondary">Отправить</button>
-    {{ form_end(form_blog) }}
-</div>
+    <div class="container">
+        <h1>Добавить пост</h1>
+        {{ form_start(form_blog) }}
+        {{ form_row(form_blog.title) }}
+        {{ form_row(form_blog.content, { 'id' :  'mytextarea' } ) }}
+        {{ form_widget(form_blog) }}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+
+        {{ form_end(form_blog) }}
+
+    </div>
 {% endblock %}

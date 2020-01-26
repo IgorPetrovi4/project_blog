@@ -34,7 +34,8 @@ class PostFormType extends AbstractType
         $builder
             ->add('title')
             ->add('content', TextareaType::class, [
-                'attr'=> ['rows'=>10
+                'attr'=> ['rows'=>10,
+
                 ]
             ]);
 
