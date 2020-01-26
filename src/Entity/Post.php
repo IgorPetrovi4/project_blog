@@ -42,6 +42,11 @@ class Post
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $edited;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Post
     public function setUser(?UserBase $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEdited(): ?bool
+    {
+        return $this->edited;
+    }
+
+    public function setEdited(bool $edited): self
+    {
+        $this->edited = $edited;
 
         return $this;
     }

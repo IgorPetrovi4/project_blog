@@ -3,8 +3,13 @@
 {% block title %}Hello BlogController!{% endblock %}
 
 {% block body %}
-    <div class="container">
 
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
 
 
@@ -18,21 +23,28 @@
                 <th scope="col">№</th>
                 <th scope="col">Заголовок</th>
                 <th scope="col">Пост</th>
+                <th scope="col">Проверка</th>
                 <th scope="col">Удалить</th>
                 <th scope="col">Редактировать</th>
+
 
             </tr>
             </thead>
             <tbody>
+
 
         {% for post in posts %}
             <tr>
                 <th>{{ post.id }}</th>
                 <td>{{ post.title}} </td>
                 <td>{{ post.content}} </td>
-                <td><a href="{{ path('remove_post', { 'id': post.id }) }}">&#128465;</a></td>
-                <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
-
+                <td>{{ post.edited}} </td>
+                {% if post.edited == 1 %}
+                    <td><a >отрадактированно</a></td>
+                {% else %}
+                    <td><a href="{{ path('remove_post', { 'id': post.id }) }}">&#128465;</a></td>
+                    <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
+                {% endif %}
 
             </tr>
         {% endfor %}

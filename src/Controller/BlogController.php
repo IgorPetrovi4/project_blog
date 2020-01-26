@@ -26,8 +26,9 @@ class BlogController extends AbstractController
             $post->setUser($this->getUser());
             $em->persist($post);
             $em->flush();
-            $this->addFlash('success', 'Данные добвленны в базу данных');
+            $this->addFlash('success', 'Пост добавлен!');
             return $this->redirectToRoute('profile');
+
         }
 
         return $this->render('blog/post.html.twig', [
@@ -44,7 +45,7 @@ class BlogController extends AbstractController
 
         $user = $this->getUser();
         if (!$user){
-            return $this->redirectToRoute('register');
+            return $this->redirectToRoute('app_register');
         }
 
         if ($this->isGranted('ROLE_USER')) {
