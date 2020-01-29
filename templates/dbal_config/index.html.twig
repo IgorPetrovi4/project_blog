@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DbalConfigController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Добавить Connect</h1>
+        {{ form_start(formDbal) }}
+        {{ form_widget(formDbal) }}
+        <button type="submit" class="btn btn-primary">добавить</button>
+       {{ form_end(formDbal) }}
+
+    </div>
+{% endblock %}

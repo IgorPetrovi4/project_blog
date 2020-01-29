@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://176.114.0.65:5432/finmode_info</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="cfdtop_com@176.114.0.65" uuid="bfb7fba3-1dd3-4b09-8569-d732b5a2b0ff">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://176.114.0.65:3306/cfdtop_com</jdbc-url>
+    </data-source>
   </component>
 </project>
