@@ -6,6 +6,8 @@
     <div class="container">
 
         <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
+        <a href="{{ path('dbal_config') }}" type="button" class="btn btn-outline-secondary">Добавить конектор к БД</a>
+
 
 
 
@@ -20,6 +22,7 @@
                     <th scope="col">Пост</th>
                     <th scope="col">Удалить</th>
                     <th scope="col">Редактировать</th>
+                    <th scope="col">Отправить</th>
 
                 </tr>
                 </thead>
@@ -38,6 +41,7 @@
                         {% endif %}
 
                         <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
+                        <td><a href="{{ path('admin_post_insert', { 'id': post.id }) }}">&#128190;</a></td>
                     </tr>
 
                 {% endfor %}

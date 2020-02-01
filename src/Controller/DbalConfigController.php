@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\DbalConfig;
-use App\Entity\Post;
 use App\Form\DbalConfigType;
-use App\Form\PostFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +29,12 @@ class DbalConfigController extends AbstractController
 
         }
 
+        $dbalConfig = $em->getRepository(DbalConfig::class)->findBy([]);
+
         return $this->render('dbal_config/index.html.twig', [
             'controller_name' => 'DbalConfigController',
-            'formDbal'=>$form_dbal->createView()
+            'formDbal'=>$form_dbal->createView(),
+            'dbalConfigs'=>$dbalConfig
         ]);
     }
 }

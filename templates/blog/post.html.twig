@@ -9,7 +9,7 @@
         <h1>Добавить пост</h1>
         {{ form_start(form_blog) }}
         {{ form_row(form_blog.title) }}
-        {{ form_row(form_blog.content, { 'id' :  'mytextarea' } ) }}
+        {{ form_row(form_blog.content ) }}
         {{ form_widget(form_blog) }}
         <button type="submit" class="btn btn-primary">Отправить</button>
 

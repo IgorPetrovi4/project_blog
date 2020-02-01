@@ -10,5 +10,32 @@
         <button type="submit" class="btn btn-primary">добавить</button>
        {{ form_end(formDbal) }}
 
+
+
+
+        <h1>Доступные коннекторы</h1>
+        <div class="col-lg-auto">
+            <table class="table table-responsive-sm table-sm">
+                <thead class="text-center">
+                <tr>
+                     <th scope="col">Коннектор</th>
+                    <th scope="col">Имя базы данных</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+
+                {% for dbalConfig in dbalConfigs %}
+                    <tr>
+                         <td>{{ dbalConfig.urlDbal}} </td>
+                        <td>{{ dbalConfig.resourse}} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
     </div>
 {% endblock %}

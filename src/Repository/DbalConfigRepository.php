@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\DbalConfig;
+use App\Entity\Post;
+use App\Service\ConnectorRemoteDb;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\DriverManager;
@@ -16,21 +18,32 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class DbalConfigRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $con;
+    public function __construct(ManagerRegistry $registry, ConnectorRemoteDb $con)
     {
         parent::__construct($registry, DbalConfig::class);
+        $this->con = $con;
+
     }
 
 
+    //получение последнего значения meta_id
+    /*public function revizionDataMax(){
+        // конект к базе данных cfdtop_com
+        $connect = $this->con->ConnectorRemoteDb('cfdtop_com');
+        $sql = "SELECT revision_id FROM blog_posts ORDER BY revision_id DESC ";
+        $stmt = $connect->fetchColumn($sql);
+        return  $revision_id = $stmt+1;
+    }*/
 
-    public function insertBlogPost($revision_id, $meta_id,$title,$introduction,$text,$publish_on,$created_on, $edited_on) :array
+
+
+    public function insertBlogPost($title,$introduction,$text,$publish_on,$created_on, $edited_on) :array
     {
         $cfdtop_com_blog_posts = [
             'id'=>'1',
-            'revision_id'=>$revision_id,
             'category_id'=>'1',
             'user_id' => '1',
-            'meta_id'=>$meta_id,
             'language'=>'ru',
             'title'=>$title,
             'introduction'=>$introduction,
@@ -48,6 +61,32 @@ class DbalConfigRepository extends ServiceEntityRepository
         return $cfdtop_com_blog_posts;
     }
 
+
+    public function insertMeta(){
+        $cfdtop_com_meta = [
+            'id'=>'',
+            'keywords'=>'',
+            'keywords_overwrite'=>'',
+            'description'=>'',
+            'description_overwrite'=>'',
+            'title'=>'',
+            'title_overwrite'=>'',
+            'url'=>'',
+            'url_overwrite'=>'',
+            'custom'=>'',
+            'data'=>'',
+            'seo_follow'=>'',
+            'seo_index'=>'',
+
+
+
+
+
+        ];
+
+
+        return $cfdtop_com_meta;
+    }
     // /**
     //  * @return DbalConfig[] Returns an array of DbalConfig objects
     //  */

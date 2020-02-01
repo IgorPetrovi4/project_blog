@@ -2,20 +2,15 @@
 
 namespace App\Form;
 
-use App\Controller\SecurityController;
+
 use App\Entity\Post;
-use App\Entity\UserBase;
-use App\Repository\UserBaseRepository;
-use Doctrine\DBAL\Types\TextType;
-use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Curl\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
@@ -34,10 +29,17 @@ class PostFormType extends AbstractType
         $builder
             ->add('title')
             ->add('content', TextareaType::class, [
-                'attr'=> ['rows'=>10,
+
+                'attr'=> ['rows'=>10
 
                 ]
-            ]);
+            ])
+            ->add('introduction', TextareaType::class, [
+                'attr'=> ['rows'=>5
+
+                ]
+            ])
+        ->add('publishOn', DateType::class);
 
 
         // ставлю прослушиватель событий
@@ -49,7 +51,9 @@ class PostFormType extends AbstractType
 
             if (!empty($post)&& $user  )  {
                 $form->add('edited', CheckboxType::class,[
-                    'label'=>'Отредактированно'
+                    'label'=>'Отредактированно',
+                    'required'  =>  false
+
                 ]);
             }
         });

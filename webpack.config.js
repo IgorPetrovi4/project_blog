@@ -69,6 +69,12 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    //I call the plugin
+
+
+
 ;
 
 module.exports = Encore.getWebpackConfig();
+

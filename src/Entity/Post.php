@@ -47,6 +47,16 @@ class Post
      */
     private $edited;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $introduction;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publish_on;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +130,30 @@ class Post
     public function setEdited(bool $edited): self
     {
         $this->edited = $edited;
+
+        return $this;
+    }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
+    }
+
+    public function setIntroduction(?string $introduction): self
+    {
+        $this->introduction = $introduction;
+
+        return $this;
+    }
+
+    public function getPublishOn(): ?\DateTimeInterface
+    {
+        return $this->publish_on;
+    }
+
+    public function setPublishOn(?\DateTimeInterface $publish_on): self
+    {
+        $this->publish_on = $publish_on;
 
         return $this;
     }
