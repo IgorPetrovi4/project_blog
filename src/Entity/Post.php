@@ -57,6 +57,16 @@ class Post
      */
     private $publish_on;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_on;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $edited_on;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +164,30 @@ class Post
     public function setPublishOn(?\DateTimeInterface $publish_on): self
     {
         $this->publish_on = $publish_on;
+
+        return $this;
+    }
+
+    public function getCreatedOn(): ?\DateTimeInterface
+    {
+        return $this->created_on;
+    }
+
+    public function setCreatedOn(?\DateTimeInterface $created_on): self
+    {
+        $this->created_on = $created_on;
+
+        return $this;
+    }
+
+    public function getEditedOn(): ?\DateTimeInterface
+    {
+        return $this->edited_on;
+    }
+
+    public function setEditedOn(?\DateTimeInterface $edited_on): self
+    {
+        $this->edited_on = $edited_on;
 
         return $this;
     }

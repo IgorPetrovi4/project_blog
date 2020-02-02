@@ -6,7 +6,6 @@ namespace App\Form;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -19,6 +18,8 @@ class PostFormType extends AbstractType
 
     // получаю обьект текущего User в PostForm
     private $security;
+
+
     public function __construct(Security $security)
     {
         $this->security = $security;
@@ -30,29 +31,29 @@ class PostFormType extends AbstractType
             ->add('title')
             ->add('content', TextareaType::class, [
 
-                'attr'=> ['rows'=>10
+                'attr' => ['rows' => 10
 
                 ]
             ])
             ->add('introduction', TextareaType::class, [
-                'attr'=> ['rows'=>5
+                'attr' => ['rows' => 5
 
                 ]
-            ])
-        ->add('publishOn', DateType::class);
+            ]);
 
 
         // ставлю прослушиватель событий
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-             $form = $event->getForm();
-             $post =$event->getData();
 
-             $user = $this->security->isGranted('ROLE_ADMIN');
+            $form = $event->getForm();
+            $post = $event->getData();
 
-            if (!empty($post)&& $user  )  {
-                $form->add('edited', CheckboxType::class,[
-                    'label'=>'Отредактированно',
-                    'required'  =>  false
+            $user = $this->security->isGranted('ROLE_ADMIN');
+            //TODO написать проверку если USER_ADMIN добавляет пост то галочка проверки не стоит (массив не пустой из за времени ).
+            if (!empty($post) && $user) {
+                $form->add('edited', CheckboxType::class, [
+                    'label' => 'Отредактированно',
+                    'required' => false
 
                 ]);
             }

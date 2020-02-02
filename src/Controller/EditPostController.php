@@ -17,10 +17,12 @@ class EditPostController extends AbstractController
     public function index(Request $request, EntityManagerInterface $em, Post $post)
     {
 
+        // получение датты редактирования
+        $post->setEditedOn(new  \DateTimeImmutable("now"));
 
         // форма изменения информации
         $form = $this->createForm(PostFormType::class, $post);
-       $form->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 

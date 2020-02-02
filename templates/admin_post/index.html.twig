@@ -4,6 +4,11 @@
 
 {% block body %}
     <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
         <a href="{{ path('dbal_config') }}" type="button" class="btn btn-outline-secondary">Добавить конектор к БД</a>

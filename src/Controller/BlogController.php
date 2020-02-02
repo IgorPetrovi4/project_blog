@@ -16,9 +16,12 @@ class BlogController extends AbstractController
      */
     public function post(Request $request, EntityManagerInterface $em)
     {
+        //получение датты создания
+        $post = new Post();
+        $post->setCreatedOn(new \DateTimeImmutable('now'))->getCreatedOn();
 
         // добавление данных
-        $form_blog = $this->createForm(PostFormType::class);
+        $form_blog = $this->createForm(PostFormType::class, $post);
         $form_blog->handleRequest($request);
 
         if ($form_blog->isSubmitted() && $form_blog->isValid()) {
@@ -33,10 +36,11 @@ class BlogController extends AbstractController
 
         return $this->render('blog/post.html.twig', [
             'controller_name' => 'BlogController',
-            'form_blog'=>$form_blog->createView()
+            'form_blog' => $form_blog->createView()
 
         ]);
     }
+
     /**
      * @Route("/profile", name="profile")
      */
@@ -44,7 +48,7 @@ class BlogController extends AbstractController
     {
 
         $user = $this->getUser();
-        if (!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_register');
         }
 
@@ -56,7 +60,6 @@ class BlogController extends AbstractController
         }
 
 
-
         if ($this->isGranted('ROLE_ADMIN')) {
             // вывод всей таблицы всех user
             return $this->redirectToRoute('admin_post');
@@ -66,12 +69,9 @@ class BlogController extends AbstractController
 
         return $this->render('blog/profile.html.twig', [
             'controller_name' => 'ProfileController',
-            'posts'=>$posts
+            'posts' => $posts
         ]);
     }
-
-
-
 
 
 }
