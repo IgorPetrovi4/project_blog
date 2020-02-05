@@ -1,25 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello AdminPostController!{% endblock %}
-
 {% block body %}
-    <div class="container">
+    <div class="container-fluid ">
+
+
+        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
+        <a href="{{ path('dbal_config') }}" type="button" class="btn btn-outline-secondary">Добавить конектор к БД</a>
+
+
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
         {% endfor %}
 
-        <a href="{{ path('post') }}" type="button" class="btn btn-outline-secondary">Добавить пост</a>
-        <a href="{{ path('dbal_config') }}" type="button" class="btn btn-outline-secondary">Добавить конектор к БД</a>
-
-
-
-
 
         <h1>Ваши посты</h1>
-        <div class="col-lg-auto">
-            <table class="table table-responsive-sm table-sm">
+        <div class="col-md-auto">
+            <table class="table table-responsive-sm table-sm ">
                 <thead class="text-center">
                 <tr>
                     <th scope="col">Копирайтер</th>
@@ -27,26 +26,52 @@
                     <th scope="col">Пост</th>
                     <th scope="col">Удалить</th>
                     <th scope="col">Редактировать</th>
+                    <th scope="col">Категория</th>
+                    <th scope="col"></th>
                     <th scope="col">Отправить</th>
+
 
                 </tr>
                 </thead>
                 <tbody>
 
 
-                    {% for post in posts %}
+                {% for post in posts %}
                     <tr>
-                        <th>{{ post.user.email}}</th>
-                        <td>{{ post.title}} </td>
-                        <td>{{ post.content}} </td>
+                        <th>{{ post.user.email }}</th>
+                        <td>{{ post.title }} </td>
+                        <td>  {{ post.content|slice(0,400)| striptags('<a>') }} </td>
                         {% if post.edited == 1 %}
-                            <td><a >отрадактированно</a></td>
+                            <td><a>отрадактированно</a></td>
                         {% else %}
-                            <td><a href="{{ path('remove_post', { 'id': post.id }) }}">&#128465;</a></td>
+                            <td>
+                                <a href="{{ path('remove_post', { 'id': post.id }) }}" class="btn btn-sm btn-danger" role="button" aria-pressed="true">Удалить</a>
+                            </td>
                         {% endif %}
 
                         <td><a href="{{ path('edit_post', { 'id': post.id }) }}">&#9997;</a></td>
-                        <td><a href="{{ path('admin_post_insert', { 'id': post.id }) }}">&#128190;</a></td>
+
+                        <td>
+                            <div class="form-group">
+                                <select id="inputState" class="form-control-sm">
+                                    <option selected>Ресурс...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                                {{ form_start(forms[post.id]) }}
+                                {{ form_row(forms[post.id].resourse) }}
+
+                        </td>
+                        <td>
+                            {{ form_row(forms[post.id].submit) }}
+                            {{ form_widget(forms[post.id]) }}
+                            {{ form_end(forms[post.id]) }}
+
+                        </td>
                     </tr>
 
                 {% endfor %}
@@ -54,5 +79,9 @@
             </table>
 
         </div>
+
     </div>
 {% endblock %}
+
+
+

@@ -36,7 +36,7 @@
             <tr>
                 <th>{{ post.id }}</th>
                 <td>{{ post.title}} </td>
-                <td>{{ post.content}} </td>
+                <td>  {{ post.content|slice(0,400)| striptags('<a>')}} </td>
                 {% if post.edited == 1 %}
                     <td><a >отрадактированно</a></td>
                 {% else %}

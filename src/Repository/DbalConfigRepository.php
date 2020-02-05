@@ -19,10 +19,11 @@ use Doctrine\ORM\EntityManagerInterface;
 class DbalConfigRepository extends ServiceEntityRepository
 {
     private $con;
-    public function __construct(ManagerRegistry $registry, ConnectorRemoteDb $con)
+   public function __construct(ManagerRegistry $registry, ConnectorRemoteDb $con)
     {
         parent::__construct($registry, DbalConfig::class);
         $this->con = $con;
+
 
     }
 
@@ -38,14 +39,36 @@ class DbalConfigRepository extends ServiceEntityRepository
 
 
 
-    public function insertBlogPost($title,$introduction,$text,$publish_on,$created_on, $edited_on) :array
+    public function insertBlogPost( Post $post) :array
     {
+        // получаю свой title
+        $title = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getTitle();
+        // получаю свой content
+        $text = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getContent();
+        // получаю свой introduction
+        $introduction = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getIntroduction();
+        //получаю датту создания поста в формате 2020-01-23 09:28:00
+        $created_on = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getCreatedOn()->format(date('Y-m-d H:i:s'));
+        //получаю датту редактирования поста в формате 2020-01-23 09:28:00
+        $edited_on_object =$this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getEditedOn();
+        if (empty($edited_on_object)) {
+            $edited_on = '0000-00-00 00:00:00';
+        } else
+        $edited_on = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getEditedOn()->format(date('Y-m-d H:i:s'));
+        //получаю датту публикации поста в формате 2020-01-23 09:28:00
+        $publish_on_object = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getPublishOn();
+        if (empty($publish_on_object)) {
+            $publish_on = '0000-00-00 00:00:00';
+        } else
+        $publish_on = $this->_em->getRepository(Post::class)->findOneBy(['id' => $post->getId()])->getPublishOn()->format(date('Y-m-d H:i:s'));
+
+
         $cfdtop_com_blog_posts = [
             'id'=>'1',
             'category_id'=>'1',
             'user_id' => '1',
             'language'=>'ru',
-            'title'=>$title,
+            'title'=> $title,
             'introduction'=>$introduction,
             'text'=>$text,
             'image'=>'',

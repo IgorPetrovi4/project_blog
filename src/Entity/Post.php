@@ -67,6 +67,11 @@ class Post
      */
     private $edited_on;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DbalConfig")
+     */
+    private $dbal_config;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +193,18 @@ class Post
     public function setEditedOn(?\DateTimeInterface $edited_on): self
     {
         $this->edited_on = $edited_on;
+
+        return $this;
+    }
+
+    public function getDbalConfig(): ?DbalConfig
+    {
+        return $this->dbal_config;
+    }
+
+    public function setDbalConfig(?DbalConfig $dbal_config): self
+    {
+        $this->dbal_config = $dbal_config;
 
         return $this;
     }
