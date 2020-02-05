@@ -45,7 +45,8 @@
                             <td><a>отрадактированно</a></td>
                         {% else %}
                             <td>
-                                <a href="{{ path('remove_post', { 'id': post.id }) }}" class="btn btn-sm btn-danger" role="button" aria-pressed="true">Удалить</a>
+                                <a href="{{ path('remove_post', { 'id': post.id }) }}" class="btn btn-sm btn-danger"
+                                   role="button" aria-pressed="true">Удалить</a>
                             </td>
                         {% endif %}
 
@@ -62,8 +63,8 @@
                             </div>
                         </td>
                         <td>
-                                {{ form_start(forms[post.id]) }}
-                                {{ form_row(forms[post.id].resourse) }}
+                            {{ form_start(forms[post.id]) }}
+                            {{ form_row(forms[post.id].resourse) }}
 
                         </td>
                         <td>

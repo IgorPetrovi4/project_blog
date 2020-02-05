@@ -2,23 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\DbalConfig;
+
 use App\Entity\Post;
 use App\Form\ChoiceResurseType;
-use App\Form\DbalConfigType;
 use App\Repository\DbalConfigRepository;
 use App\Service\ConnectorRemoteDb;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class AdminPostController extends AbstractController
 {
-
 
     /**
      * @Route("/admin/post", name="admin_post")
@@ -27,6 +23,7 @@ class AdminPostController extends AbstractController
     {        //вывод всей таблицы
         $posts = $em->getRepository(Post::class)->findBy([]);
 
+        //создаю каждую форму в цикле
         $forms = [];
         foreach ($posts as $post) {
             //перенаправляю форму на роут 'admin_post_insert'
@@ -38,23 +35,21 @@ class AdminPostController extends AbstractController
             $forms[$post->getId()] = $form->createView();
         }
 
-
         return $this->render('admin_post/index.html.twig', [
             'controller_name' => 'AdminPostController',
             'posts' => $posts,
             'forms' => $forms,
 
-
         ]);
 
     }
 
-
     /**
      * @Route("/admin/post/insert/{id}", name="admin_post_insert")
      */
-    public function insertDbRemote( Request $request, EntityManagerInterface $em, ConnectorRemoteDb $con, DbalConfigRepository $repository, Post $post)
+    public function insertDbRemote(Request $request, EntityManagerInterface $em, ConnectorRemoteDb $con, DbalConfigRepository $repository, Post $post)
     {
+        // получаю форму из admin_post
         $form = $this->createForm(ChoiceResurseType::class);
         $form->handleRequest($request);
         //получаю ресурс конектора (базу данных)
@@ -67,8 +62,6 @@ class AdminPostController extends AbstractController
             $this->addFlash('success', 'Пост не отредактирован');
             return $this->redirectToRoute('admin_post');
         }
-
-
 
         // конект к базе данных cfdtop_com
         $connect = $con->ConnectorRemoteDb($resource);
